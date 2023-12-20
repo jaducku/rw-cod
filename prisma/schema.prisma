@@ -45,6 +45,10 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  posts         Post[]
+  replies       Reply[]
+  poll          Poll[]
+  votes         Vote[]
   userCode Int?
   nickName String?
   swordManTier Int?
@@ -66,4 +70,51 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Post {
+  id String @id @default(uuid())
+  title String
+  content String
+  cretedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+  replies Reply[]
+}
+
+model Reply {
+  id String @id @default(uuid())
+  content String
+  createdAt DateTime @default(now())
+  post Post @relation(fields: [postId], references: [id])
+  postId String
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+}
+
+model Poll {
+  id String @id @default(uuid())
+  title String
+  createdAt DateTime @default(now())
+  expiredAt DateTime
+  creator User @relation(fields: [creatorId], references: [id])
+  creatorId String
+  options Option[]
+}
+
+model Option{
+  id String @id @default(uuid())
+  item String
+  poll Poll @relation(fields: [pollId], references: [id])
+  pollId String
+  votes Vote[]
+}
+
+model Vote {
+  id String @id @default(uuid())
+  voter User @relation(fields: [voterId], references: [id])
+  voterId String
+  option Option @relation(fields: [optionId], references: [id])
+  optionId String
 }
