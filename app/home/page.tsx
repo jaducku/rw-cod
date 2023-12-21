@@ -12,6 +12,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Overview } from "./components/overview";
 import { RecentSales } from "./components/recent-sales";
+import AcceleratorCalculator from "./components/acceleratorCalculator";
 
 export const metadata: Metadata = {
   title: "Road Warrior",
@@ -33,6 +34,7 @@ export default function DashboardPage() {
               <TabsTrigger value="reports">Reports</TabsTrigger>
               <TabsTrigger value="notifications">Notifications</TabsTrigger>
               <TabsTrigger value="myProfile">My Profile</TabsTrigger>
+              <TabsTrigger value="acceleratorCalculator">가속 계산기</TabsTrigger>
             </TabsList>
             <TabsContent value="overview" className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
@@ -97,6 +99,11 @@ export default function DashboardPage() {
                     <RecentSales />
                   </CardContent>
                 </Card>
+              </div>
+            </TabsContent>
+            <TabsContent value="acceleratorCalculator" className="space-y-4">
+              <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                <AcceleratorCalculator/>
               </div>
             </TabsContent>
           </Tabs>
